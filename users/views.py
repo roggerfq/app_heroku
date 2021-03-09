@@ -16,16 +16,7 @@ from django.contrib.auth.forms import UserCreationForm
 import json
 
 def index(request):
-    if request.method == 'POST':
-        #user = User(nameorganization=request.POST['nameorganization'], username=request.POST['username'], password=request.POST['password'], lat=request.POST['lat'], lon=request.POST['lon'], zoom_level=request.POST['zoom_level'])
-        user = User.objects.create_user(username=request.POST['username'], email=request.POST['email'], password=request.POST['password'])
-        user.save()
-        #return redirect('/')
-        #user = Users.objects.get(username=request.POST['username'], password=request.POST['password'])
-        print(user)
-        return render(request, 'users/home.html', {'member': user})
-    else:
-        return render(request, 'users/index.html')
+    return HttpResponse("hola mundo")
  
 def login(request):
     print(request)
