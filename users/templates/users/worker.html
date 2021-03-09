@@ -1,0 +1,147 @@
+<html>
+  <head>
+
+
+	  <meta charset="utf-8">
+	  
+	  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+	  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+	    crossorigin="anonymous"></script>
+
+
+    <style>
+
+
+    </style>
+
+
+    <script>
+
+        var csrfmiddlewaretoken = "{{ csrf_token }}";
+        var GET_USER_DATA_URL = "{% url 'getUserData' %}";
+        var GET_ALL_USER_DATA_URL = "{% url 'getAllUserData' %}";
+
+    </script>
+
+
+
+  </head>
+
+
+  <body>
+    
+     <h1> hi, I am a worker</h1>
+     <br>
+     <button type="button" id="mybuttonStart">Start worker</button>
+     <br>
+     <button type="button" id="mybuttonStop">Stop worker</button>
+
+
+
+     <script type="text/javascript" charset="utf-8">
+
+
+      //https://flask-socketio.readthedocs.io/en/latest/
+
+      var socket_worker = io.connect('http://127.0.0.1:5000/worker', { transports: ['websocket'] });
+      //var socket_worker = io.connect('https://secure-plains-85220.herokuapp.com:/worker', { transports: ['websocket'] });
+
+
+       var flag_worker_is_connected = false;
+
+       socket_worker.on('start', function(data) {
+         
+             flag_worker_is_connected = data['flag'];
+             console.log(data['flag']);
+             console.log(data['msg']);
+
+       });
+
+
+      $('#mybuttonStart').click(function() {
+
+
+             console.log(flag_worker_is_connected);
+             
+	     //___________________fill initial data from django______________________
+   
+
+             var data_request = {};
+
+	     $.ajax({
+	          type: "POST",
+	          url: GET_ALL_USER_DATA_URL,
+	          data: {data: JSON.stringify(data_request), csrfmiddlewaretoken: csrfmiddlewaretoken},
+	          success: function (json_data_from_server) {
+
+		                    var json_data = JSON.parse(json_data_from_server.replace(/&quot;/g, '"'));
+                                    /*
+		                    console.log(json_data);
+                                    for(var member in json_data){
+		                        console.log(member)
+	                            }
+                                    */
+                 
+                                    socket_worker.emit('first_data', json_data);
+
+	          }
+	     });
+
+	     //_______________________________________________________________________
+
+      });
+
+      
+      
+
+
+      $('#mybuttonStop').click(function() {
+
+        socket_worker.emit('stop',{});    
+
+      });
+
+      socket_worker.on('disconnect', function() {
+        
+
+      });
+
+
+
+      socket_worker.on('updateWorker', function(msg) {
+
+         console.log('updateWorker');
+         data = msg['data'];
+         var id_user = data["id_user"]
+         console.log(id_user);
+
+         console.log("get user data");
+
+         var data_request = {"id": id_user};
+
+
+	 $.ajax({
+	      type: "POST",
+	      url: GET_USER_DATA_URL,
+	      data: {data: JSON.stringify(data_request), csrfmiddlewaretoken: csrfmiddlewaretoken},
+	      success: function (json_data_from_server) {
+
+                var json_data = JSON.parse(json_data_from_server.replace(/&quot;/g, '"'))
+		console.log(json_data);
+                socket_worker.emit('update_parking_lot_user', json_data);                
+
+	      }
+	 });
+
+
+      });
+
+
+
+    </script>
+
+
+
+
+  </body>
+</html>

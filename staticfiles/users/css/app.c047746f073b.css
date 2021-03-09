@@ -1,0 +1,188 @@
+
+
+/* genral app */
+body {
+    padding: 0;
+    margin: 0;
+    background: #fff;
+}
+.navbar {
+    background:#000000;
+}
+.nav-link,
+.navbar-brand {
+    color: #999;
+    cursor: pointer;
+}
+.nav-link {
+    margin-right: 1em !important;
+}
+.nav-link:hover {
+    color: #ffffff;
+}
+.navbar-collapse {
+    justify-content: flex-end;
+}
+
+
+
+.navbar-brand {
+    position: relative;
+    width: 50px;
+    left: 15px;
+    background-size: contain;
+}
+﻿
+
+
+
+
+
+/* carousel */
+
+/*
+
+.pagination ul {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+  background-color: #0d6efd;
+}
+
+.pagination > .active > a
+{
+    color: white;
+    background-color: #5A4181 !Important;
+    border: solid 1px #5A4181 !Important;
+}
+
+
+.pagination > .active > a:hover
+{
+    background-color: #0d6efd !Important;
+    border: solid 1px #0d6efd;
+}
+
+*/
+
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+  background-color: #0d6efd;
+}
+
+
+
+/*--------------------------------------POLYGONS------------------------------------------*/
+
+/*--important for the opacity of svg--*/
+#div-video,
+#div-svg {
+  position: absolute;
+  /*left: 0px;*/
+ /* border: 1px solid blue;*/
+}
+/*------------------------------------*/
+
+
+/*----border img-video---*/
+/*
+This increases the box size of img-video so #mainSvg is smaller for some pixel (en las mediciones esta diferencia era menor a la unidad (>>1 px)).
+*/
+#img-video{
+  border: solid 6px #0d6efd;
+  border-radius: 6px;
+}
+
+
+/*--------color polygons------*/
+.rectangle {
+  fill: lightblue;
+  stroke: blue;
+  stroke-width: 2px;
+  fill-opacity: 0.5;
+}
+
+.rectangle-bind {
+  fill: none;
+  stroke: #081c4e;
+  stroke-width: 1px;
+  stroke-dasharray: 5;
+}
+
+circle {
+  fill: lightgreen;
+  stroke: green;
+  stroke-width: 2px;
+  fill-opacity: 0.5;
+}
+
+.rect-active {
+  fill: #1578db;
+}
+
+.pointC-active {
+  fill: #FF8F00;
+}
+
+.circle-active {
+  fill: #4CAF50;
+}
+
+path {
+  fill: #ffb7b3;
+  stroke: #ff4736;
+  stroke-width: 5px;
+}
+
+polygon {
+  fill: #b6eeff;
+  fill-opacity: 0.5;
+  stroke: #0067ff;
+  stroke-width: 2px;
+}
+
+line {
+  fill: none;
+  stroke: #cd08ff;
+  stroke-width: 2px;
+}
+
+polyline {
+  fill: none;
+  stroke: #563aff;
+  stroke-width: 2px;
+}
+
+circle.handle {
+  fill: yellow;
+  stroke: #cb9c0f;
+  stroke-width: 2px;
+  cursor: pointer;
+}
+
+/*----------------------------*/
+
+/*----------------------------------------------------------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+

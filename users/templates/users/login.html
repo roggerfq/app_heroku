@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+  <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Icons-->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'users/css/custom.css' %}" />
+
+
+
+</head>
+<body>
+
+     <div class="sidenav">
+
+
+<div class="jumbotron vertical-center">
+<div class="container ">
+
+    <div class="row">
+        <div class="center-block text-center my-auto btn-black"><h1>DeepPaking</h1></div>
+    </div>
+
+    <div class="row">
+        <div class="center-block text-center my-auto btn-black"><p>Mejorando la seguridad en parqueaderos por medio de la <br> inteligencia artificial </p></div>
+    </div>
+
+    <div class="row">
+        <div class="center-block text-center my-auto"> <img src="{% static 'users/media/logo_deepParking.png' %}" class="img-fluid" style="margin-top: 50px; margin-bottom: 50px;"></div>
+    </div>
+
+    <div class="row">
+        <div class="center-block text-center my-auto btn-black">  <h3>Desarrollado por:</h3></div>
+    </div>
+
+    <div class="row">
+        <div class="center-block text-center my-auto"> <img src="https://deepvisionlab.tech/wp-content/uploads/2019/11/deepvision_logo.png" class="img-fluid" style="margin-top: 10px;"> </div>
+    </div>
+
+</div>
+
+</div>
+
+
+
+      </div>
+
+
+      </div>
+      <div class="main">
+         <div class="col-md-6 col-sm-12">
+            <div class="login-form">
+
+
+ 
+    
+          <div class="panel panel-info" >
+
+                <div class="panel-heading">
+                  <div class="panel-title">Sign In</div>
+                  <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>
+               </div>     
+
+
+
+                <div style="padding-top:30px" class="panel-body" > 
+
+
+
+               <form method="POST" action="{% url 'login' %}">
+                 {% csrf_token %}
+                  <div class="form-group">
+                     <label for="username">Nombre de usuario</label>
+                     <input type="text" name="username" class="form-control" required="required"/>
+                  </div>
+                  <div class="form-group">
+                     <label for="password">Contraseña</label>
+                     <input type="password" name="password" class="form-control" required="required"/>
+                  </div>
+                  <center><label class="text-danger">{{ msg }}</label></center>
+                  <div class="form-group">
+                      <button type="submit" class="btn btn-black" name="login">Login</button>
+                  </div>
+
+<br>
+                                <div class="form-group">
+                                    <div class="col-md-12 control">
+                                        <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
+                                            Don't have an account! 
+                                        <a href="{% url 'register' %}">
+                                            Sign Up Here
+                                        </a>
+                                        </div>
+                                    </div>
+                                </div>    
+
+
+               </form>
+
+
+           </div> <!-- panel-body -->
+   </div> <!-- panel panel-info -->
+
+
+
+
+            </div>
+         </div>
+      </div>
+
+
+</body>
+</html>
+
