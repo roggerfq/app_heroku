@@ -1,8 +1,10 @@
 <html>
   <head>
 
-
 	  <meta charset="utf-8">
+          <title>DeepParking</title>
+          {% load static %}
+          <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
 	  
 	  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
 	  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
@@ -20,6 +22,11 @@
         var csrfmiddlewaretoken = "{{ csrf_token }}";
         var GET_USER_DATA_URL = "{% url 'getUserData' %}";
         var GET_ALL_USER_DATA_URL = "{% url 'getAllUserData' %}";
+
+        var json_settings_from_server = "{{settings}}";
+        var settings = JSON.parse(json_settings_from_server.replace(/&quot;/g, '"'));
+        console.log("__________settings___________");
+        console.log(settings['url_geo_server'] + '/' + settings['namespace_worker']);
 
     </script>
 
@@ -41,12 +48,10 @@
      <script type="text/javascript" charset="utf-8">
 
 
-      //https://flask-socketio.readthedocs.io/en/latest/
+       //https://flask-socketio.readthedocs.io/en/latest/
 
-      var socket_worker = io.connect('http://127.0.0.1:5000/worker', { transports: ['websocket'] });
-      //var socket_worker = io.connect('https://secure-plains-85220.herokuapp.com:/worker', { transports: ['websocket'] });
-
-
+       var socket_worker = io.connect(settings['url_geo_server'] + '/' + settings['namespace_worker'], { transports: ['websocket'] });
+     
        var flag_worker_is_connected = false;
 
        socket_worker.on('start', function(data) {

@@ -16,8 +16,8 @@ from django.contrib.auth.forms import UserCreationForm
 import json
 
 def index(request):
-    return HttpResponse("hola mundo")
- 
+    return redirect('/users/login')    
+
 def login(request):
     print(request)
     if request.method == 'POST':
@@ -210,44 +210,54 @@ def update(request):
 
 
 def worker(request):
-    print("loading worker")
-        
-    members = Member.objects.all()
-    data_members = dict()
-    for member in members:
-        data_members[member.user.id] = member.get_dict()
+    print(request.user)
+    print(request.user.is_authenticated)
 
-    data = json.dumps(data_members)
-     
-    return render(request, 'users/worker.html', {'data': data})    
+    if(request.user.is_authenticated):
+      user = User.objects.get(id=request.user.id)
+      if(user.is_superuser):
+        dict_settings = dict()
+        for setting in  Setting.objects.all():
+            dict_settings[setting.key] = setting.value
+            settings = json.dumps(dict_settings)
+        return render(request, 'users/worker.html', {'settings': settings})
+
+    return HttpResponse("Access denied")
+
 
 
 def getAllUserData(request):
 
-    data_request= json.loads(request.POST['data'])
+    if(request.method == 'POST'):
+       if(request.user.is_authenticated):
+          user = User.objects.get(id=request.user.id)
+          if(user.is_superuser):
+             #data_request= json.loads(request.POST['data'])
+             members = Member.objects.all()
+             data_members = dict()
+             for member in members:
+                 data_members[member.user.id] = member.get_dict()
+                 data = json.dumps(data_members)
+                 print(data)
+                 return HttpResponse(data)
 
-    members = Member.objects.all()
-    data_members = dict()
-    for member in members:
-        data_members[member.user.id] = member.get_dict()
-
-    data = json.dumps(data_members)
-    return HttpResponse(data)
+    return HttpResponse("Access denied")
 
 def getUserData(request):
 
-    data_request= json.loads(request.POST['data'])
-    id_user = data_request["id"]
-    print(id_user)
+    if(request.method == 'POST'):
+       if(request.user.is_authenticated):
+          user = User.objects.get(id=request.user.id)
+          if(user.is_superuser):
+            data_request= json.loads(request.POST['data'])
+            id_user = data_request["id"]
+            user = User.objects.get(id= id_user)
+            member = Member.objects.get(user=user)
+            msg =  member.to_json()
+            print(msg)
+            return HttpResponse(msg)
 
-    user = User.objects.get(id= id_user)
-    print("email:" + str(user.email))
-    member = Member.objects.get(user=user)
-    msg =  member.to_json()
-    
-
-    return HttpResponse(msg)
-
+    return HttpResponse("Access denied")
 
 def map(request):
     setting = Setting.objects.get(key="url_geo_server")
