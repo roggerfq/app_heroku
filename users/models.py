@@ -46,6 +46,7 @@ class ParkingLot(models.Model):
 
     def get_dict(self):
         obj = dict()
+        obj['id'] = self.id
         obj['id_local'] = self.id_local
         obj['url_video'] = self.url_video
         obj['lat'] = self.lat
