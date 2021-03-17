@@ -227,7 +227,7 @@ def worker(request):
 
 
 def getAllUserData(request):
-
+    print("getAllUserData")
     if(request.method == 'POST'):
        if(request.user.is_authenticated):
           user = User.objects.get(id=request.user.id)
@@ -237,9 +237,8 @@ def getAllUserData(request):
              data_members = dict()
              for member in members:
                  data_members[member.user.id] = member.get_dict()
-                 data = json.dumps(data_members)
-                 print(data)
-                 return HttpResponse(data)
+             data = json.dumps(data_members)
+             return HttpResponse(data)
 
     return HttpResponse("Access denied")
 
