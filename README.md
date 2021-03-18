@@ -6,7 +6,7 @@ Primero se crea la carpeta estática en el directorio raíz (en este caso dentro
 Luego se hace (https://stackoverflow.com/questions/53694341/heroku-django-deploy-why-am-i-getting-an-error-500-with-successful-deploy-and-s): python manage.py collectstatic
 Luego se actualiza GitHub (ver repositorio https://github.com/roggerfq/mvp_deepParkingUser): 
 	git add -A
-	git commit -m "Added files and changes required for deployment to heroku9"
+	git commit -m "ge all users problem"
 	git push origin HEAD:main
 Luego se sube a heroku siguiendo estos pasos: 
    heroku config:set DISABLE_COLLECTSTATIC=1
